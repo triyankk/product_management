@@ -25,6 +25,39 @@
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# NestJS E-commerce API
+
+This is a NestJS-based e-commerce API with JWT authentication. It includes user registration and login, product management, and order management.
+
+## Features
+
+- User registration and login
+- JWT-based authentication
+- CRUD operations for products
+- Order management
+- Role-based access control (admin for product creation and deletion)
+
+## Technologies Used
+
+- NestJS
+- MongoDB
+- Mongoose
+- JWT
+- Docker
+
+## Prerequisites
+
+- Node.js
+- Docker and Docker Compose
+
+## Getting Started
+
+### Clone the Repository
+
+```sh
+git clone https://github.com/your-username/nestjs-ecommerce-api.git
+cd nestjs-ecommerce-api
+
 
 ## Installation
 

@@ -15,12 +15,12 @@ export class AuthService {
     private jwtService: JwtService,
     private configService: ConfigService
   ) {}
-
+//MARK: Register
   async register(registerDto: RegisterDto): Promise<User> {
     const user = await this.usersService.create(registerDto);
     return user;
   }
-
+//MARK: login
   async login(user: User): Promise<{ user: User, accessToken: string }> {
     const payload = { username: user.username, sub: user.email, role: user.role };
     const accessToken = this.jwtService.sign(payload, { secret: this.configService.get<string>('JWT_SECRET') });
@@ -34,7 +34,7 @@ export class AuthService {
     }
     throw new UnauthorizedException('Invalid credentials');
   }
-
+//MARK: change password
   async changePassword(email: string, updatePasswordDto: UpdatePasswordDto): Promise<User> {
     const user = await this.usersService.findOneByEmail(email);
     if (!user) {

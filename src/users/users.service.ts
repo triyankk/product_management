@@ -7,8 +7,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
-
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
   async create(createUserDto: CreateUserDto): Promise<UserDocument> {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     const createdUser = new this.userModel({
@@ -17,11 +16,9 @@ export class UsersService {
     });
     return createdUser.save();
   }
-
   async findOneByEmail(email: string): Promise<UserDocument> {
     return this.userModel.findOne({ email }).exec();
   }
-
   async updatePassword(_id: string, newPassword: string): Promise<UserDocument> {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     return this.userModel.findByIdAndUpdate(_id, { password: hashedPassword }, { new: true }).exec();

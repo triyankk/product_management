@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Delete,Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Product } from './schemas/product.schema';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Role } from '../users/roles.enum';
 import { DeleteProductDto } from './dto/delete-product.dto';
@@ -32,7 +32,7 @@ export class ProductsController {
     @Delete()
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles(Role.Admin)
-    deleteByName(@Body() deleteProductDto: DeleteProductDto) {
-        return this.productsService.deleteByName(deleteProductDto);
+    async deleteByName(@Body() deleteProductDto: DeleteProductDto): Promise<void> {
+        await this.productsService.deleteByName(deleteProductDto);
     }
 }

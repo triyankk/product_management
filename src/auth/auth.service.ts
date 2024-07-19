@@ -5,7 +5,6 @@ import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { UpdatePasswordDto } from './dto/update-password.dto';
 import { User } from '../users/schemas/user.schema';
 
 @Injectable()
@@ -33,19 +32,5 @@ export class AuthService {
       return user;
     }
     throw new UnauthorizedException('Invalid credentials');
-  }
-//MARK: change password
-  async changePassword(email: string, updatePasswordDto: UpdatePasswordDto): Promise<User> {
-    const user = await this.usersService.findOneByEmail(email);
-    if (!user) {
-      throw new BadRequestException('User not found');
-    }
-    const isMatch = await bcrypt.compare(updatePasswordDto.currentPassword, user.password);
-    if (!isMatch) {
-      throw new BadRequestException('Current password does not match');
-    }
-    const hashedPassword = await bcrypt.hash(updatePasswordDto.newPassword, 10);
-    user.password = hashedPassword;
-    return user.save();
   }
 }

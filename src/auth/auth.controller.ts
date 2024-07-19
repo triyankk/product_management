@@ -4,7 +4,6 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -23,9 +22,6 @@ export class AuthController {
     return this.authService.register(registerDto);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Put('change-password')
-  async changePassword(@Request() req, @Body() updatePasswordDto: UpdatePasswordDto) {
-    return this.authService.changePassword(req.user.email, updatePasswordDto);
-  }
+  // @UseGuards(JwtAuthGuard)
+  
 }

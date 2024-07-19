@@ -1,23 +1,21 @@
 version: '3.8'
-
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/nest
+      JWT_SECRET: your_jwt_secret
+    depends_on:
+      - mongodb
   mongodb:
     image: mongo:latest
-    container_name: mongodb
     ports:
       - '27017:27017'
     volumes:
       - mongo-data:/data/db
-
-  app:
-    build: .
-    container_name: nestjs-app
-    ports:
-      - '3000:3000'
-    depends_on:
-      - mongodb
-    environment:
-      MONGO_URI: mongodb://localhost/triyankk
-
 volumes:
   mongo-data:
